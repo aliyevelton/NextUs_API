@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\assets\\templates\\index.html",
+      "PackagePath": "staticwebassets\\assets\\templates\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp",
+      "PackagePath": "staticwebassets\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp",
+      "PackagePath": "staticwebassets\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.API.props",
+      "PackagePath": "build\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.API.props",
+      "PackagePath": "buildMultiTargeting\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.API.props",
+      "PackagePath": "buildTransitive\\API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

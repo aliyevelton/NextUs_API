@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "WX8WVuIxtg8mJ7qtHWxC2Tn7PbrJ00jZs1bEZznoogg=",
+  "Source": "API",
+  "BasePath": "_content/API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "API\\wwwroot",
+      "Source": "API",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\assets\\templates\\index.html",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "assets/templates/index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\templates\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/companies/d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/companies/e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp"
+    }
+  ]
+}
