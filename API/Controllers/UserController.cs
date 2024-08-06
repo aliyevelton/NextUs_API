@@ -52,14 +52,25 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> FindUser(string username)
+    public async Task<IActionResult> FindUser(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user == null)
+            return NotFound("User not found");
+
+        return Ok($"User email: {user.Email}");
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> FindByUserName(string username)
     {
         var user = await _userManager.FindByNameAsync(username);
 
         if (user == null)
             return NotFound("User not found");
 
-        return Ok($"User email: {user.Email}");
+        return Ok($"User name: {user.UserName}");
     }
 
     [HttpPost("[action]")]
@@ -70,6 +81,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _userService.GetAllUsers();

@@ -51,16 +51,16 @@ public class CompanyService : ICompanyService
 
         var newCompany = _mapper.Map<Company>(companyPostDto);
 
-        if (companyPostDto.Logo != null)
+        if (companyPostDto.LogoFile != null)
         {
-            string fileName = await _fileService.UploadFileAsync(companyPostDto.Logo, "image/", 3000, "companies");
+            string fileName = await _fileService.UploadFileAsync(companyPostDto.LogoFile, "image/", 3000, "images", "companies");
 
             newCompany.Logo = fileName;
         }
 
-        if (companyPostDto.CoverImage != null)
+         if (companyPostDto.CoverImageFile != null)
         {
-            string fileName = await _fileService.UploadFileAsync(companyPostDto.CoverImage, "image/", 3000, "companies");
+            string fileName = await _fileService.UploadFileAsync(companyPostDto.CoverImageFile, "image/", 3000, "images", "companies");
 
             newCompany.CoverImage = fileName;
         }
@@ -76,6 +76,67 @@ public class CompanyService : ICompanyService
             throw new CompanyNotFoundByIdException($"Company not found by id: {id}");
 
         _mapper.Map(companyPostDto, company);
+
+        if (companyPostDto.LogoFile != null && company.Logo != null)
+        {
+            if (!companyPostDto.LogoFile.FileName.Contains(company.Logo))
+                _fileService.DeleteCompanyImageAsync(company.Logo);
+
+            string fileName = await _fileService.UploadFileAsync(companyPostDto.LogoFile, "image/", 3000, "images",     "companies");
+
+            company.Logo = fileName;
+        } else if (companyPostDto.LogoFile != null && company.Logo == null)
+        {
+                string fileName = await _fileService.UploadFileAsync(companyPostDto.LogoFile, "image/", 3000,   "images", "companies");
+
+            company.Logo = fileName;
+        } else if (companyPostDto.LogoFile == null && company.Logo != null)
+        {
+            _fileService.DeleteCompanyImageAsync(company.Logo);
+
+            company.Logo = null;
+        }
+
+        if (companyPostDto.CoverImageFile != null && company.CoverImage != null)
+        {
+            if (!companyPostDto.CoverImageFile.FileName.Contains(company.CoverImage))
+                _fileService.DeleteCompanyImageAsync(company.CoverImage);
+
+            string fileName = await _fileService.UploadFileAsync(companyPostDto.CoverImageFile, "image/", 3000, "images", "companies");
+
+            company.CoverImage = fileName;
+        } else if (companyPostDto.CoverImageFile != null && company.CoverImage == null)
+        {
+                string fileName = await _fileService.UploadFileAsync(companyPostDto.CoverImageFile, "image/", 3000, "images", "companies");
+
+            company.CoverImage = fileName;
+        } else if (companyPostDto.CoverImageFile == null && company.CoverImage != null)
+        {
+            _fileService.DeleteCompanyImageAsync(company.CoverImage);
+
+            company.CoverImage = null;
+        }
+
+        _repository.Update(company);
+        await _repository.SaveAsync();
+    }
+
+    public async Task DeleteImage(int id, string fileName)
+    {
+        var company = await _repository.GetSingleAsync(c => c.Id == id && !c.IsDeleted);
+        if (company == null)
+            throw new CompanyNotFoundByIdException($"Company not found by id: {id}");
+
+        if (company.Logo == fileName)
+        {
+            _fileService.DeleteCompanyImageAsync(company.Logo);
+            company.Logo = null;
+        } else if (company.CoverImage == fileName)
+        {
+            _fileService.DeleteCompanyImageAsync(company.CoverImage);
+            company.CoverImage = null;
+        }
+
         _repository.Update(company);
         await _repository.SaveAsync();
     }

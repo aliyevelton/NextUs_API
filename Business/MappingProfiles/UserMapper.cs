@@ -8,6 +8,8 @@ public class UserMapper : Profile
 {
     public UserMapper()
     {
-        CreateMap<UserCreateDto, AppUser>().ReverseMap();
+        CreateMap<UserCreateDto, AppUser>()
+            .ForMember(x => x.IsActive, y => y.MapFrom(x => true))
+            .ReverseMap();
     }
 }

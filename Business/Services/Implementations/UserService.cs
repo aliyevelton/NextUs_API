@@ -25,9 +25,10 @@ public class UserService : IUserService
 
     public async Task CreateUserAsync(UserCreateDto userCreateDto)
     {
+        var existingUser = await _userManager.FindByEmailAsync(userCreateDto.Email);
+        if (existingUser != null)
+            throw new UserAlreadyExistsException("User already exists with this email");
         AppUser user = _mapper.Map<AppUser>(userCreateDto);
-
-        user.UserName = userCreateDto.Email;
 
         IdentityResult identityResult = await _userManager.CreateAsync(user, userCreateDto.Password);
         if (!identityResult.Succeeded) 
@@ -41,6 +42,15 @@ public class UserService : IUserService
         var user = _userManager.FindByEmailAsync(email);
         if (user == null)
             throw new UserNotFoundByEmailException("User not found");
+
+        return user;
+    }
+
+    public Task FindByUserName(string username)
+    {
+        var user = _userManager.FindByNameAsync(username);
+        if (user == null)
+            throw new UserNotFoundException($"User not found by username: {username}");
 
         return user;
     }

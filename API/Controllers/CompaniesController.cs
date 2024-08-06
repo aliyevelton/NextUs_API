@@ -37,9 +37,16 @@ public class CompaniesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(int id, [FromBody] CompanyPostDto company)
+    public async Task<IActionResult> UpdateAsync(int id, [FromForm] CompanyPostDto company)
     {
         await _companyService.UpdateAsync(id, company);
+        return NoContent();
+    }
+
+    [HttpDelete("delete-image")]
+    public async Task<IActionResult> DeleteImage(int id, string fileName)
+    {
+        await _companyService.DeleteImage(id, fileName);
         return NoContent();
     }
 

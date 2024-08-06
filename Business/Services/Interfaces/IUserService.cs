@@ -7,6 +7,7 @@ public interface IUserService
 {
     Task CreateUserAsync(UserCreateDto userCreateDto);
     Task FindUser(string email);
+    Task FindByUserName(string username);
     Task DeleteUser(string email);
     Task<List<AppUser>> GetAllUsers();
 }

@@ -18,9 +18,9 @@ public class JobsController : ControllerBase
         _jobService = jobService;
     }
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] string? title, [FromQuery] string? location, [FromQuery] string? jobType, [FromQuery] int? categoryId, [FromQuery] int? companyId, [FromQuery] int? salary, [FromQuery] bool? isFeatured, [FromQuery] bool? isPremium, [FromQuery] bool? isActive)
+    public async Task<IActionResult> GetAll([FromQuery] string? title, [FromQuery] string? location, [FromQuery] int? jobType, [FromQuery] int? categoryId, [FromQuery] int? companyId, [FromQuery] int? minSalary, [FromQuery] bool? isFeatured, [FromQuery] bool? isPremium, [FromQuery] bool? isActive, [FromQuery] int? skip, [FromQuery] int? take)
     {
-        var jobs = await _jobService.GetAllJobsAsync(title, location, jobType, categoryId, companyId, salary, isFeatured, isPremium, isActive);
+        var jobs = await _jobService.GetAllJobsAsync(title, location, jobType, categoryId, companyId, minSalary, isFeatured, isPremium, isActive, skip, take);
         return Ok(jobs);
     }
     [HttpPost]
@@ -40,10 +40,18 @@ public class JobsController : ControllerBase
         await _jobService.UpdateAsync(id, jobPutDto);
         return NoContent();
     }
+
     [HttpDelete]
     public async Task<IActionResult> Delete(int id)
     {
         await _jobService.DeleteAsync(id);
+        return NoContent();
+    }
+
+    [HttpPost("{id}/increment-view-count")]
+    public async Task<IActionResult> IncrementViewCount(int id)
+    {
+        await _jobService.IncrementViewCountAsync(id);
         return NoContent();
     }
 }

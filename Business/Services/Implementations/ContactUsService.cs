@@ -25,8 +25,20 @@ public class ContactUsService : IContactUsService
 
     public async Task AddAsync(ContactUsDto contactUsDto)
     {
+        if (string.IsNullOrEmpty(contactUsDto.Name))
+            throw new ContactUsNotNullException("Name cannot be null or empty.");
+        if (string.IsNullOrEmpty(contactUsDto.Surname))
+            throw new ContactUsNotNullException("Surname cannot be null or empty.");
+        if (string.IsNullOrEmpty(contactUsDto.Email))
+            throw new ContactUsNotNullException("Email cannot be null or empty.");
+        if (string.IsNullOrEmpty(contactUsDto.Message))
+            throw new ContactUsNotNullException("Message cannot be null or empty.");
+
         var contactUs = _mapper.Map<ContactUs>(contactUsDto);
         await _repository.AddAsync(contactUs);
+
+        if (!IsValidEmail(contactUsDto.Email))
+            throw new InvalidEmailException("The provided email address is not valid.");
 
         string body = $"Hello {contactUs.Name} {contactUs.Surname},<br/><br/>" +
                       "Thank you for contacting us. We will get back to you as soon as possible.<br/><br/>" +
@@ -74,5 +86,18 @@ public class ContactUsService : IContactUsService
 
         contactUs.IsDeleted = true;
         await _repository.SaveAsync();
+    }
+
+    private bool IsValidEmail(string email)
+    {
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

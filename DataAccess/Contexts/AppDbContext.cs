@@ -17,6 +17,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<JobCategory> JobCategories { get; set; } = null!;
     public DbSet<JTag> Tags { get; set; } = null!;
     public DbSet<ContactUs> ContactUs { get; set; } = null!;
+    public DbSet<JobApplication> JobApplications { get; set; } = null!;
+    public DbSet<JobBookmark> JobBookmarks { get; set; } = null!;  
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

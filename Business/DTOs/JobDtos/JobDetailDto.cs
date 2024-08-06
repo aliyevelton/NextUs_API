@@ -12,10 +12,14 @@ public class JobDetailDto
     public string JobType { get; set; }
     public JobCategoryGetDto Category { get; set; }
     public CompanyPostDto Company { get; set; }
-    public int Salary { get; set; }
+    public decimal? ExactSalary { get; set; }
+    public decimal? MinSalary { get; set; }
+    public decimal? MaxSalary { get; set; }
+    public byte SalaryType { get; set; }
     public bool IsFeatured { get; set; }
     public bool IsPremium { get; set; }
     public int Views { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+    public DateTime ExpireDate { get; set; }
 }

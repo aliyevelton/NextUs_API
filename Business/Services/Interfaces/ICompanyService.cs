@@ -9,5 +9,6 @@ public interface ICompanyService
     Task<CompanyGetDto> GetByIdAsync(int id);
     Task AddAsync(CompanyPostDto companyDto);
     Task UpdateAsync(int id, CompanyPostDto companyDto);
+    Task DeleteImage(int id, string fileName);
     Task DeleteAsync(int id);
 }

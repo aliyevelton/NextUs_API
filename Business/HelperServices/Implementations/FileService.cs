@@ -15,7 +15,7 @@ public class FileService : IFileService
         _webHostEnvironment = webHostEnvironment;
     }
 
-    public async Task<string> UploadFileAsync(IFormFile file, string fileType, int fileSize, string folderName)
+    public async Task<string> UploadFileAsync(IFormFile file, string fileType, int fileSize, string baseFolder, string folderName)
     {
         if (!file.CheckFileType(fileType))
             throw new FileTypeException($"Invalid file type. File type must be {fileType}");
@@ -24,15 +24,28 @@ public class FileService : IFileService
             throw new FileSizeException($"File size must be less than {fileSize} MB");
 
         string fileName = $"{Guid.NewGuid()}-{file.FileName}";
-        string path = Path.Combine(_webHostEnvironment.WebRootPath, "images", folderName, fileName);
+        string path = Path.Combine(_webHostEnvironment.WebRootPath, baseFolder, folderName, fileName);
 
          using (FileStream stream = new FileStream(path, FileMode.Create))
-        {
+         {
             await file.CopyToAsync(stream);
-        }
+         }
 
         return fileName;
     }
+
+    public string DeleteCompanyImageAsync(string fileName)
+    {
+        string path = Path.Combine(_webHostEnvironment.WebRootPath, "images", "companies", fileName);
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            return fileName;
+        } else 
+            throw new FileNotFoundException($"File not found with the name: {fileName}");
+    }
+
     //public Task DeleteFileAsync(string fileName, string folderName)
     //{
     //    throw new NotImplementedException();

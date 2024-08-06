@@ -24,22 +24,41 @@ public class AuthController : ControllerBase
     private readonly IAuthService _passwordResetService;
     private readonly IConfiguration _configuration;
     private readonly ITokenService _tokenService; //sersvise cixar burani
-    //private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public AuthController(IAuthService authService, UserManager<AppUser> userManager, IAuthService passwordResetService /*RoleManager<IdentityRole> roleManager*/)
+    public AuthController(IAuthService authService, UserManager<AppUser> userManager, IAuthService passwordResetService, RoleManager<IdentityRole> roleManager, IConfiguration configuration, ITokenService tokenService)
     {
         _authService = authService;
         _userManager = userManager;
         _passwordResetService = passwordResetService;
-        //_roleManager = roleManager;
+        _configuration = configuration;
+        _tokenService = tokenService;
+        _roleManager = roleManager;
     }
 
-    [HttpPost("[action]")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
         var tokenResponse = await _authService.LoginAsync(loginDto);
         return Ok(tokenResponse);
     }
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+
+        user.RefreshToken = null; 
+        user.RefreshTokenExpiryTime = null;
+        await _userManager.UpdateAsync(user);
+
+        return NoContent(); 
+    }
+
 
     [HttpPost("refresh-token")]
     public async Task<IActionResult> RefreshToken([FromBody] TokenRequestDto tokenRequest)
@@ -100,15 +119,15 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> GeneratePasswordResetLink([FromBody] ResetPasswordDto resetPasswordDto)
+    public async Task<IActionResult> GeneratePasswordResetLink([FromBody] string email)
     {
         var request = HttpContext.Request;
-        await _authService.GeneratePasswordResetLinkAsync(resetPasswordDto.Email, request);
+        await _authService.GeneratePasswordResetLinkAsync(email, request);
 
         return Ok("Reset password link has been sent");
     }
 
-    [HttpPost("resetpassword")]
+    [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword([FromQuery] ResetPasswordDto resetPasswordDto)
     {
         var isValid = await _passwordResetService.ValidateResetTokenAsync(resetPasswordDto.Email, resetPasswordDto.Token);
@@ -142,18 +161,18 @@ public class AuthController : ControllerBase
         }
     }
 
-    //[HttpPost("add-roles")]
-    //public async Task<IActionResult> AddRoles([FromBody] string role)
-    //{
-    //    if (!await _roleManager.RoleExistsAsync(role))
-    //    {
-    //        var result = await _roleManager.CreateAsync(new IdentityRole(role));
-    //        if (result.Succeeded)
-    //        {
-    //            return Ok("Role added successfully.");
-    //        }
-    //        return BadRequest(result.Errors);
-    //    }
-    //    return BadRequest("Role already exists.");
-    //}
+    [HttpPost("buna-deyme")]
+    public async Task<IActionResult> AddRoles([FromBody] string role)
+    {
+        if (!await _roleManager.RoleExistsAsync(role))
+        {
+            var result = await _roleManager.CreateAsync(new IdentityRole(role));
+            if (result.Succeeded)
+            {
+                return Ok("Role added successfully.");
+            }
+            return BadRequest(result.Errors);
+        }
+        return BadRequest("Role already exists.");
+    }
 }

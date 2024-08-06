@@ -1,4 +1,6 @@
-﻿namespace Business.DTOs.JobDtos;
+﻿using Business.Helpers.Enums;
+
+namespace Business.DTOs.JobDtos;
 
 public class JobPutDto
 {
@@ -6,8 +8,11 @@ public class JobPutDto
     public string Position { get; set; } = null!;
     public string Description { get; set; } = null!;
     public string Location { get; set; } = null!;
-    public string JobType { get; set; } = null!;
-    public int Salary { get; set; } 
+    public int JobType { get; set; }
+    public int? ExactSalary { get; set; }
+    public int? MinSalary { get; set; }
+    public int? MaxSalary { get; set; }
+    public SalaryType SalaryType { get; set; }
     public int CategoryId { get; set; }
     public int CompanyId { get; set; }
     public bool IsFeatured { get; set; }

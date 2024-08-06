@@ -41,6 +41,15 @@ public class AuthService : IAuthService
         if (user == null)
             throw new LoginFailedException("Invalid email or password");
 
+        if (!user.EmailConfirmed)
+            throw new EmailConfirmationException("Your email is not confirmed. Please confirm your email before you login");
+
+        if (!user.IsActive)
+            throw new UserNotActiveException("Your account is not active. Please contact the administrator");
+
+        if (user.LockoutEnd.HasValue && user.LockoutEnd.Value > DateTimeOffset.UtcNow)
+            throw new UserLockedException($"Your account is locked out as you had too many failed attempts. Please try again after {user.LockoutEnd.Value.LocalDateTime}");
+
         SignInResult signInResult = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, true);
         if (!signInResult.Succeeded)
             throw new LoginFailedException("Invalid email or password");
@@ -70,7 +79,7 @@ public class AuthService : IAuthService
         if (!result.Succeeded)
             throw new EmailConfirmationException(result.Errors);
 
-        return new(true, $"User is successfully activated. Email: {user.UserName}");
+        return new(true, $"User is successfully activated. Email: {user.Email}");
     }
 
     public async Task GeneratePasswordResetLinkAsync(string email, HttpRequest request)
@@ -84,7 +93,7 @@ public class AuthService : IAuthService
         string token = await _userManager.GeneratePasswordResetTokenAsync(user);
         string scheme = request.Scheme;
         string host = request.Host.Value;
-        string link = $"{scheme}://{host}/auth/resetpassword?email={user.Email}&token={Uri.EscapeDataString(token)}";
+        string link = $"{scheme}://{host}/api/auth/resetpassword?email={user.Email}&token={Uri.EscapeDataString(token)}";
 
         string path = Path.Combine(_webHostEnvironment.WebRootPath, "assets", "templates", "index.html");
         using StreamReader streamReader = new StreamReader(path);
@@ -92,7 +101,7 @@ public class AuthService : IAuthService
         string body = content.Replace("[link]", link);
 
         EmailHelper emailHelper = new EmailHelper(_configuration);
-        await emailHelper.SendEmailAsync(new MailRequest { ToEmail = user.Email, Subject = "Reset Password", Body = body });
+        await emailHelper.SendEmailAsync(new MailRequest { ToEmail = email, Subject = "Reset Password", Body = body });
     }
 
     public async Task<bool> ValidateResetTokenAsync(string email, string token)

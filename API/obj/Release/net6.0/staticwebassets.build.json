@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WX8WVuIxtg8mJ7qtHWxC2Tn7PbrJ00jZs1bEZznoogg=",
+  "Hash": "rZNSGJqWQsAP32ydkqUWtD9MVDmkjBpDxY1QIvy/oIE=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -36,12 +36,12 @@
       "OriginalItemSpec": "wwwroot\\assets\\templates\\index.html"
     },
     {
-      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp",
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf",
       "SourceId": "API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
       "BasePath": "_content/API",
-      "RelativePath": "images/companies/d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp",
+      "RelativePath": "files/jobApplications/c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,15 +52,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp"
+      "OriginalItemSpec": "wwwroot\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf"
     },
     {
-      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp",
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\3cb0e34c-41ca-4330-ae1b-ae1f30c1af4c-71LB-jVyW8L.webp",
       "SourceId": "API",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
       "BasePath": "_content/API",
-      "RelativePath": "images/companies/e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp",
+      "RelativePath": "images/companies/3cb0e34c-41ca-4330-ae1b-ae1f30c1af4c-71LB-jVyW8L.webp",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -71,7 +71,64 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp"
+      "OriginalItemSpec": "wwwroot\\images\\companies\\3cb0e34c-41ca-4330-ae1b-ae1f30c1af4c-71LB-jVyW8L.webp"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\4378ad44-63e9-4d39-ad38-040d4e7ce522-photo_2023-10-18_15-33-27.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/companies/4378ad44-63e9-4d39-ad38-040d4e7ce522-photo_2023-10-18_15-33-27.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\companies\\4378ad44-63e9-4d39-ad38-040d4e7ce522-photo_2023-10-18_15-33-27.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\543a11ce-dd40-4761-bcda-590d7d1c17fe-WhatsApp Image 2024-07-25 at 15.26.41_73cc0f60.jpg",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/companies/543a11ce-dd40-4761-bcda-590d7d1c17fe-WhatsApp Image 2024-07-25 at 15.26.41_73cc0f60.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\companies\\543a11ce-dd40-4761-bcda-590d7d1c17fe-WhatsApp Image 2024-07-25 at 15.26.41_73cc0f60.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\de1e664d-706c-4ed2-b30f-91da97e92253-fullbanner.webp",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "images/companies/de1e664d-706c-4ed2-b30f-91da97e92253-fullbanner.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\companies\\de1e664d-706c-4ed2-b30f-91da97e92253-fullbanner.webp"
     }
   ]
 }

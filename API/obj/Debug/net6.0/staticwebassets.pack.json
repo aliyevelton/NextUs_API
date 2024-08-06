@@ -5,12 +5,24 @@
       "PackagePath": "staticwebassets\\assets\\templates\\index.html"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp",
-      "PackagePath": "staticwebassets\\images\\companies\\d5182d3b-ae85-4080-94d4-cd147841c7b0-zara-logo.webp"
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf",
+      "PackagePath": "staticwebassets\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf"
     },
     {
-      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp",
-      "PackagePath": "staticwebassets\\images\\companies\\e48e5d95-cd1b-4b8b-887e-86250f04d2ca-porsche-logo.webp"
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\3cb0e34c-41ca-4330-ae1b-ae1f30c1af4c-71LB-jVyW8L.webp",
+      "PackagePath": "staticwebassets\\images\\companies\\3cb0e34c-41ca-4330-ae1b-ae1f30c1af4c-71LB-jVyW8L.webp"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\4378ad44-63e9-4d39-ad38-040d4e7ce522-photo_2023-10-18_15-33-27.jpg",
+      "PackagePath": "staticwebassets\\images\\companies\\4378ad44-63e9-4d39-ad38-040d4e7ce522-photo_2023-10-18_15-33-27.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\543a11ce-dd40-4761-bcda-590d7d1c17fe-WhatsApp Image 2024-07-25 at 15.26.41_73cc0f60.jpg",
+      "PackagePath": "staticwebassets\\images\\companies\\543a11ce-dd40-4761-bcda-590d7d1c17fe-WhatsApp Image 2024-07-25 at 15.26.41_73cc0f60.jpg"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\de1e664d-706c-4ed2-b30f-91da97e92253-fullbanner.webp",
+      "PackagePath": "staticwebassets\\images\\companies\\de1e664d-706c-4ed2-b30f-91da97e92253-fullbanner.webp"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
