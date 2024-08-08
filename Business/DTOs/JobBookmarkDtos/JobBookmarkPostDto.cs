@@ -3,5 +3,5 @@
 public class JobBookmarkPostDto
 {
     public int JobId { get; set; }
-    public string UserId { get; set; } = null!;
+    public string? UserId { get; set; }
 }

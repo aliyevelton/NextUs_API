@@ -88,7 +88,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:5173", "https://nextus-demo.netlify.app")
+        builder => builder.WithOrigins("http://localhost:5174", "http://localhost:5173", "https://nextus-demo.netlify.app", "https://localhost:7246/")
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
@@ -114,7 +114,7 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 app.AddExceptionHandler();
-//app.UseDeveloperExceptionPage();
+app.UseDeveloperExceptionPage();
 
 app.MapControllers();
 

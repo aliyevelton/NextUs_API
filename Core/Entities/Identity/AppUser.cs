@@ -6,7 +6,9 @@ public class AppUser : IdentityUser
 {
     public string Name { get; set; } = null!;
     public string Surname { get; set; } = null!;
+    public string? About { get; set; }
     public string? ProfilePhoto { get; set; }
+    public string? CoverImage { get; set; }
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiryTime { get; set; }
     public bool IsActive { get; set; }

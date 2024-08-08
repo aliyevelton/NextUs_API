@@ -2,7 +2,7 @@
 
 namespace Core.Entities;
 
-public class CourseTag : BaseEntity
+public class CourseTag
 {
     public int CourseId { get; set; }
     public Course Course { get; set; }

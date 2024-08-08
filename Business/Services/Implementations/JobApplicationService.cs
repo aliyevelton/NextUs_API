@@ -54,6 +54,16 @@ public class JobApplicationService : IJobApplicationService
         return jobApplications;
     }
 
+    public async Task<List<JobApplication>> GetJobApplicationsByJobIdAsync(int jobId)
+    {
+        var jobApplications = await _repository.GetFilteredAsync(j => j.JobId == jobId);
+
+        if (jobApplications == null)
+            throw new JobApplicationNotFoundException("No job applications found");
+
+        return jobApplications;
+    }
+
     public async Task AddAsync(JobApplicationPostDto jobApplicationPostDto)
     {
         bool isJobExists = await _jobRepository.IsExistsAsync(j => j.Id == jobApplicationPostDto.JobId && !j.IsDeleted);

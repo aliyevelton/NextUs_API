@@ -48,7 +48,7 @@ public class JobService : IJobService
 
     public async Task<JobDetailWithBookmarkDto> GetByIdAsync(int id, string? userId)
     {
-        var job = await _repository.GetSingleAsync(j => j.Id == id && !j.IsDeleted, "Category", "Company");
+        var job = await _repository.GetSingleAsync(j => j.Id == id && !j.IsDeleted, "Category", "Company", "Tags.Tag");
         if (job == null)
             throw new JobNotFoundByIdException($"Job not found by id: {id}");
 
@@ -59,6 +59,11 @@ public class JobService : IJobService
         }
         
         var jobDetailDto = _mapper.Map<JobDetailDto>(job);
+
+        jobDetailDto.Tags = job.Tags?
+        .Where(jt => jt.Tag != null) 
+        .Select(jt => jt.Tag.Name) 
+        .ToList() ?? new List<string>();
 
         var result = new JobDetailWithBookmarkDto
         {
@@ -130,7 +135,7 @@ public class JobService : IJobService
     }
     public async Task UpdateAsync(int id, JobPutDto jobPutDto)
     {
-        var job = await _repository.GetSingleAsync(j => j.Id == id && !j.IsDeleted);
+        var job = await _repository.GetSingleAsync(j => j.Id == id && !j.IsDeleted, "Tags.Tag");
         if (job == null)
             throw new JobNotFoundByIdException($"Job not found by id: {id}");
 
@@ -178,7 +183,10 @@ public class JobService : IJobService
                     await _tagRepository.AddAsync(tag);
                     await _tagRepository.SaveAsync();
                 }
-                job.Tags.Add(new JobTag { Job = job, Tag = tag });
+                if (job.Tags.All(jt => jt.TagId != tag.Id))
+                {
+                    job.Tags.Add(new JobTag { Job = job, Tag = tag });
+                }
             }
         }
 

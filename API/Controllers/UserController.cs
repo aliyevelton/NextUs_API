@@ -63,14 +63,14 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> FindByUserName(string username)
+    public async Task<IActionResult> FindUserById(string userId)
     {
-        var user = await _userManager.FindByNameAsync(username);
+        var user = await _userService.FindUserById(userId);
 
         if (user == null)
             return NotFound("User not found");
 
-        return Ok($"User name: {user.UserName}");
+        return Ok(user);
     }
 
     [HttpPost("[action]")]
@@ -96,20 +96,82 @@ public class UserController : ControllerBase
         if (userId == null)
             return Unauthorized();
 
-        var user = await _userManager.FindByIdAsync(userId);
-        if (user == null)
-            return NotFound();
+        var user = await _userService.FindUser(userId);
 
-        var userDetails = new
-        {
-            user.Id,
-            user.Name,
-            user.Surname,
-            user.Email,
-            user.EmailConfirmed,
-            user.ProfilePhoto
-        };
+        return Ok(user);
+    }
 
-        return Ok(userDetails);
+    [HttpPut("deactivate")]
+    //[Authorize]
+    public async Task<IActionResult> DeactivateUser(string userId)
+    {
+        await _userService.DeactivateUserAsync(userId);
+
+        return StatusCode((int)HttpStatusCode.NoContent);
+    }
+
+    [HttpPut("activate")]
+    //[Authorize]
+    public async Task<IActionResult> ActivateUser(string userId)
+    {
+        await _userService.ActivateUserAsync(userId);
+
+        return StatusCode((int)HttpStatusCode.NoContent);
+    }
+
+    [HttpPut("update-profile-image")]
+    [Authorize]
+    public async Task<IActionResult> UpdateProfilePhoto([FromForm] UpdateProfilePhotoDto updateProfilePhotoDto)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; 
+        if (userId == null)
+            return Unauthorized();
+
+        await _userService.UpdateProfilePhotoAsync(userId, updateProfilePhotoDto);
+
+        return StatusCode((int)HttpStatusCode.NoContent);
+    }
+
+    [HttpPut("update-roles")]
+    //[Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateRoles(ChangeUserRolesDto changeUserRolesDto)
+    {
+        await _userService.UpdateUserRolesAsync(changeUserRolesDto);
+
+        return StatusCode((int)HttpStatusCode.NoContent);
+    }
+
+    [HttpGet("all-roles")]
+    //[Authorize(Roles = "Admin")]
+    public async Task<IActionResult> AllRoles()
+    {
+        var roles = await _userService.AllRoles();
+        return Ok(roles);
+    }
+
+    [HttpPut("update-cover-image")]
+    [Authorize]
+    public async Task<IActionResult> UpdateCoverImage([FromForm] UpdateCoverImageDto updateCoverImageDto)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null)
+            return Unauthorized();
+
+        await _userService.UpdateCoverImageAsync(userId, updateCoverImageDto);
+
+        return StatusCode((int)HttpStatusCode.NoContent);
+    }
+
+    [HttpPut("update-about-text")]
+    [Authorize]
+    public async Task<IActionResult> UpdateAboutText([FromBody] UpdateAboutTextDto updateAboutTextDto)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null)
+            return Unauthorized();
+
+        await _userService.UpdateAboutTextAsync(userId, updateAboutTextDto);
+
+        return StatusCode((int)HttpStatusCode.NoContent);
     }
 }

@@ -33,7 +33,7 @@ public class JobApplicationsController : ControllerBase
         return Ok(await _jobApplicationService.GetByIdAsync(id));
     }
 
-    [HttpGet("user/{userId}")]
+    [HttpGet("user-application")]
     public async Task<IActionResult> GetJobApplicationsByUserId()
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Get user ID from claims
@@ -43,6 +43,14 @@ public class JobApplicationsController : ControllerBase
         var jobApplications = await _jobApplicationService.GetJobApplicationsByUserIdAsync(userId);
 
 
+
+        return Ok(jobApplications);
+    }
+
+    [HttpGet("application-by-job-id")]
+    public async Task<IActionResult> GetJobApplicationsByJobId(int jobId)
+    {
+        var jobApplications = await _jobApplicationService.GetJobApplicationsByJobIdAsync(jobId);
 
         return Ok(jobApplications);
     }

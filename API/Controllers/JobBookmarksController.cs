@@ -19,6 +19,20 @@ public class JobBookmarksController : ControllerBase
         _mapper = mapper;
     }
 
+    [HttpPost("bookmark")]
+    public async Task<IActionResult> AddAsync(JobBookmarkPostDto jobBookmarkPostDto)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Get user ID from claims
+        if (userId == null)
+            return Unauthorized();
+
+        jobBookmarkPostDto.UserId = userId;
+
+        await _jobBookmarkService.AddAsync(jobBookmarkPostDto);
+
+        return Ok();
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
@@ -30,10 +44,10 @@ public class JobBookmarksController : ControllerBase
         return Ok(jobBookmark);
     }
 
-    [HttpGet]
+    [HttpGet("user-bookmarks")]
     public async Task<IActionResult> GetJobBookmarksByUserIdAsync()
     {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; // Get user ID from claims
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; 
         if (userId == null)
             return Unauthorized();
 
@@ -45,19 +59,21 @@ public class JobBookmarksController : ControllerBase
         return Ok(jobBookmarks);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> AddAsync(JobBookmarkPostDto jobBookmarkPostDto)
-    {
-        await _jobBookmarkService.AddAsync(jobBookmarkPostDto);
-
-        return Ok();
-    }
-
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _jobBookmarkService.DeleteAsync(id);
 
         return Ok();
+    }
+
+    [HttpGet("is-bookmarked")]
+    public bool IsJobBookmarkedByUserAsync(int jobId)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; 
+        if (userId == null)
+            return false;
+
+        return _jobBookmarkService.IsJobBookmarkedByUserAsync(jobId, userId).Result;
     }
 }

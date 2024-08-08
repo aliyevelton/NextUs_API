@@ -79,8 +79,7 @@ public class CompanyService : ICompanyService
 
         if (companyPostDto.LogoFile != null && company.Logo != null)
         {
-            if (!companyPostDto.LogoFile.FileName.Contains(company.Logo))
-                _fileService.DeleteCompanyImageAsync(company.Logo);
+            _fileService.DeleteCompanyImageAsync(company.Logo);
 
             string fileName = await _fileService.UploadFileAsync(companyPostDto.LogoFile, "image/", 3000, "images",     "companies");
 
@@ -99,8 +98,7 @@ public class CompanyService : ICompanyService
 
         if (companyPostDto.CoverImageFile != null && company.CoverImage != null)
         {
-            if (!companyPostDto.CoverImageFile.FileName.Contains(company.CoverImage))
-                _fileService.DeleteCompanyImageAsync(company.CoverImage);
+            _fileService.DeleteCompanyImageAsync(company.CoverImage);
 
             string fileName = await _fileService.UploadFileAsync(companyPostDto.CoverImageFile, "image/", 3000, "images", "companies");
 

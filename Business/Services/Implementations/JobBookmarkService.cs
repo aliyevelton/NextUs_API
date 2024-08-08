@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.DTOs.JobBookmarkDtos;
 using Business.DTOs.JobDtos;
+using Business.Exceptions.JobExceptions;
 using Business.Services.Interfaces;
 using Core.Entities;
 using DataAccess.Repositories.Interfaces;
@@ -10,12 +11,14 @@ namespace Business.Services.Implementations;
 public class JobBookmarkService : IJobBookmarkService
 {
     private readonly IRepository<JobBookmark> _repository;
+    private readonly IRepository<Job> _jobRepository;
     private readonly IMapper _mapper;
 
-    public JobBookmarkService(IRepository<JobBookmark> jobBookmarkRepository, IMapper mapper)
+    public JobBookmarkService(IRepository<JobBookmark> jobBookmarkRepository, IMapper mapper, IRepository<Job> jobRepository)
     {
         _repository = jobBookmarkRepository;
         _mapper = mapper;
+        _jobRepository = jobRepository;
     }
 
     public async Task<JobBookmark> GetByIdAsync(int id)
@@ -42,7 +45,8 @@ public class JobBookmarkService : IJobBookmarkService
             {
                 JobId = jb.Job.Id,
                 Title = jb.Job.Title,
-                CompanyName = jb.Job.Company.Name
+                CompanyName = jb.Job.Company.Name,
+                CompanyLogo = jb.Job.Company.Logo
             }
         }).ToList();
 
@@ -51,14 +55,23 @@ public class JobBookmarkService : IJobBookmarkService
 
     public async Task AddAsync(JobBookmarkPostDto jobBookmarkPostDto)
     {
-        if (jobBookmarkPostDto.JobId <= 0)
-            throw new ArgumentNullException("JobId", "JobId cannot be zero or lower");
+        var job = await _jobRepository.GetSingleAsync(j => j.Id == jobBookmarkPostDto.JobId);
+
+        if (job == null)
+            throw new JobNotFoundByIdException($"Job not found by id: {jobBookmarkPostDto.JobId}");
         if (jobBookmarkPostDto.UserId == null)
             throw new ArgumentNullException("UserId", "UserId cannot be null");
 
-        var jobBookmark = _mapper.Map<JobBookmark>(jobBookmarkPostDto);
+        var isJobBookmarked = await IsJobBookmarkedByUserAsync(jobBookmarkPostDto.JobId, jobBookmarkPostDto.UserId);
+        if (isJobBookmarked)
+        {
+            _repository.Delete(await _repository.GetSingleAsync(jb => jb.JobId == jobBookmarkPostDto.JobId && jb.UserId == jobBookmarkPostDto.UserId));
+        } else
+        {
+            var jobBookmark = _mapper.Map<JobBookmark>(jobBookmarkPostDto);
+            await _repository.AddAsync(jobBookmark);
+        }
 
-        await _repository.AddAsync(jobBookmark);
         await _repository.SaveAsync();
     }
 

@@ -5,6 +5,6 @@ namespace Core.Entities;
 public class Tag : BaseEntity
 {
     public string Name { get; set; } = null!;
-    public ICollection<CourseTag>? Courses { get; set; }
-    public ICollection<JobTag>? Jobs { get; set; }
+    public ICollection<CourseTag>? CourseTags { get; set; }
+    public ICollection<JobTag>? JobTags { get; set; }
 }

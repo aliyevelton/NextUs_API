@@ -16,11 +16,11 @@ public class CourseService : ICourseService
     private readonly IRepository<CourseCategory> _categoryRepository;
     private readonly IRepository<Company> _companyRepository;
     private readonly IRepository<Tag> _tagRepository;
-    private readonly IJobBookmarkService _jobBookmarkService;
+    private readonly ICourseBookmarkService _courseBookmarkService;
     private readonly IFileService _fileService;
     private readonly IMapper _mapper;
 
-    public CourseService(IRepository<Course> repository, IMapper mapper, IRepository<CourseCategory> categoryRepository, IRepository<Company> companyRepository, IRepository<Tag> tagRepository, IFileService fileService, IJobBookmarkService jobBookmarkService)
+    public CourseService(IRepository<Course> repository, IMapper mapper, IRepository<CourseCategory> categoryRepository, IRepository<Company> companyRepository, IRepository<Tag> tagRepository, IFileService fileService, ICourseBookmarkService courseBookmarkService)
     {
         _repository = repository;
         _mapper = mapper;
@@ -28,7 +28,7 @@ public class CourseService : ICourseService
         _companyRepository = companyRepository;
         _tagRepository = tagRepository;
         _fileService = fileService;
-        _jobBookmarkService = jobBookmarkService;
+        _courseBookmarkService = courseBookmarkService;
     }
 
     public async Task<List<CourseGetDto>> GetAllCoursesAsync(string? title, string? location, int? categoryId, int? companyId, int? courseType, int? minPrice, bool? isActive, bool? isApproved, int? skip, int? take)
@@ -45,17 +45,22 @@ public class CourseService : ICourseService
 
     public async Task<CourseDetailWithBookmarkDto> GetByIdAsync(int id, string? userId)
     {
-        var course = await _repository.GetSingleAsync(c => c.Id == id && !c.IsDeleted, "Category", "Company");
+        var course = await _repository.GetSingleAsync(c => c.Id == id && !c.IsDeleted, "Category", "Company", "Tags.Tag");
         if (course == null)
             throw new CourseNotFoundByIdException($"Course not found by id: {id}");
 
         bool isBookmarked = false;
         if (userId != null)
         {
-            isBookmarked = await _jobBookmarkService.IsJobBookmarkedByUserAsync(id, userId);
+            isBookmarked = await _courseBookmarkService.IsCourseBookmarkedByUserAsync(id, userId);
         }
 
         var courseDetailDto = _mapper.Map<CourseDetailDto>(course);
+
+        courseDetailDto.Tags = course.Tags?
+        .Where(ct => ct.Tag != null) 
+        .Select(ct => ct.Tag.Name) 
+        .ToList() ?? new List<string>();
 
         var result = new CourseDetailWithBookmarkDto
         {
@@ -99,8 +104,10 @@ public class CourseService : ICourseService
                     await _tagRepository.AddAsync(tag);
                     await _tagRepository.SaveAsync();
                 }
-
-                course.Tags.Add(new CourseTag { Tag = tag });
+                if (course.Tags.All(jt => jt.TagId != tag.Id))
+                {
+                    course.Tags.Add(new CourseTag { Course = course, Tag = tag });
+                }
             }
         }
 

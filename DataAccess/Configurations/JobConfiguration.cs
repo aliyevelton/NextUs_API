@@ -18,5 +18,9 @@ public class JobConfiguration : IEntityTypeConfiguration<Job>
         builder.Property(j => j.MinSalary).HasColumnType("decimal(18, 2)");
         builder.Property(j => j.MaxSalary).HasColumnType("decimal(18, 2)");
         builder.Property(j => j.ExactSalary).HasColumnType("decimal(18, 2)");
+
+        builder.HasMany(c => c.Tags)
+               .WithOne(ct => ct.Job)
+               .HasForeignKey(ct => ct.JobId);
     }
 }

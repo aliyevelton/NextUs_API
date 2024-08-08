@@ -8,6 +8,7 @@ public interface IJobApplicationService
     Task<JobApplication> GetByIdAsync(int id);
     Task<List<JobApplication>> GetJobApplicationsAsync();
     Task<List<JobApplication>> GetJobApplicationsByUserIdAsync(string userId);
+    Task<List<JobApplication>> GetJobApplicationsByJobIdAsync(int jobId);
     Task AddAsync(JobApplicationPostDto jobApplicationPostDto);
     Task DeleteAsync(int id);
 }

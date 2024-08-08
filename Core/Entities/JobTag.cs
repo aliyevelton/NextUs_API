@@ -2,7 +2,7 @@
 
 namespace Core.Entities;
 
-public class JobTag : BaseEntity
+public class JobTag
 {
     public int JobId { get; set; }
     public Job Job { get; set; }

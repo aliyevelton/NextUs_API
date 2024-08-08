@@ -5,8 +5,28 @@
       "PackagePath": "staticwebassets\\assets\\templates\\index.html"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\courseSyllabus\\2277125c-9df0-401c-bccd-604d029e0a2e-16Personalities.pdf",
+      "PackagePath": "staticwebassets\\files\\courseSyllabus\\2277125c-9df0-401c-bccd-604d029e0a2e-16Personalities.pdf"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\courseSyllabus\\3c595001-433f-40f7-9533-65513176b312-16Personalities.pdf",
+      "PackagePath": "staticwebassets\\files\\courseSyllabus\\3c595001-433f-40f7-9533-65513176b312-16Personalities.pdf"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\courseSyllabus\\776bee85-1588-4eef-a7a4-b75474212dfd-EltonsCV.pdf",
       "PackagePath": "staticwebassets\\files\\courseSyllabus\\776bee85-1588-4eef-a7a4-b75474212dfd-EltonsCV.pdf"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\courseSyllabus\\af2a21ca-1d5a-459a-a900-18a11b24f909-16Personalities.pdf",
+      "PackagePath": "staticwebassets\\files\\courseSyllabus\\af2a21ca-1d5a-459a-a900-18a11b24f909-16Personalities.pdf"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\courseSyllabus\\fce90371-01f0-4ccd-93da-ec9b3e9fec02-16Personalities.pdf",
+      "PackagePath": "staticwebassets\\files\\courseSyllabus\\fce90371-01f0-4ccd-93da-ec9b3e9fec02-16Personalities.pdf"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\jobApplications\\64a80ca9-ee2f-4d80-ba95-8290046089ad-Elton-Programming-FF.pdf",
+      "PackagePath": "staticwebassets\\files\\jobApplications\\64a80ca9-ee2f-4d80-ba95-8290046089ad-Elton-Programming-FF.pdf"
     },
     {
       "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf",
@@ -27,6 +47,10 @@
     {
       "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\companies\\de1e664d-706c-4ed2-b30f-91da97e92253-fullbanner.webp",
       "PackagePath": "staticwebassets\\images\\companies\\de1e664d-706c-4ed2-b30f-91da97e92253-fullbanner.webp"
+    },
+    {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\images\\user-images\\4051aabc-5b3e-4019-a5a3-3fc9ce430873-porsche-2.webp",
+      "PackagePath": "staticwebassets\\images\\user-images\\4051aabc-5b3e-4019-a5a3-3fc9ce430873-porsche-2.webp"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
