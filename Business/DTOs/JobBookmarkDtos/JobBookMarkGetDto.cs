@@ -2,7 +2,7 @@
 
 namespace Business.DTOs.JobBookmarkDtos;
 
-public class JobBookMarkGetDto
+public class JobBookmarkGetDto
 {
     public int Id { get; set; }
     public int JobId { get; set; }

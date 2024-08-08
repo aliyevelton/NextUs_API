@@ -71,6 +71,9 @@ builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IJobBookmarkService, JobBookmarkService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICourseCategoryService, CourseCategoryService>();
+builder.Services.AddScoped<ICourseBookmarkService, CourseBookmarkService>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAutoMapper(typeof(JobMapper).Assembly);

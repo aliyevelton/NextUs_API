@@ -12,4 +12,5 @@ public class AppUser : IdentityUser
     public bool IsActive { get; set; }
     public ICollection<JobApplication>? Applications { get; set; }
     public ICollection<JobBookmark>? Bookmarks { get; set; }
+    public ICollection<CourseBookmark>? CourseBookmarks { get; set; }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rZNSGJqWQsAP32ydkqUWtD9MVDmkjBpDxY1QIvy/oIE=",
+  "Hash": "BBJ5y6BJ86ZHiKIEzLlg1k/0lGD3l/i6SBULz7aJK7Q=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\templates\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\courseSyllabus\\776bee85-1588-4eef-a7a4-b75474212dfd-EltonsCV.pdf",
+      "SourceId": "API",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\",
+      "BasePath": "_content/API",
+      "RelativePath": "files/courseSyllabus/776bee85-1588-4eef-a7a4-b75474212dfd-EltonsCV.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\files\\courseSyllabus\\776bee85-1588-4eef-a7a4-b75474212dfd-EltonsCV.pdf"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf",

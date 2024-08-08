@@ -15,10 +15,15 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Job> Jobs { get; set; } = null!;
     public DbSet<Company> Companies { get; set; } = null!;
     public DbSet<JobCategory> JobCategories { get; set; } = null!;
-    public DbSet<JTag> Tags { get; set; } = null!;
     public DbSet<ContactUs> ContactUs { get; set; } = null!;
     public DbSet<JobApplication> JobApplications { get; set; } = null!;
     public DbSet<JobBookmark> JobBookmarks { get; set; } = null!;  
+    public DbSet<Tag> Tags { get; set; } = null!;
+    public DbSet<JobTag> JobTags { get; set; } = null!;
+    public DbSet<Course> Courses { get; set; } = null!;
+    public DbSet<CourseCategory> CourseCategories { get; set; } = null!;
+    public DbSet<CourseTag> CourseTags { get; set; } = null!;
+    public DbSet<CourseBookmark> CourseBookmarks { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

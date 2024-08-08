@@ -46,6 +46,18 @@ public class FileService : IFileService
             throw new FileNotFoundException($"File not found with the name: {fileName}");
     }
 
+    public string DeleteCourseSyllabusAsync(string fileName)
+    {
+        string path = Path.Combine(_webHostEnvironment.WebRootPath, "files", "courseSyllabus", fileName);
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            return fileName;
+        } else 
+            throw new FileNotFoundException($"File not found with the name: {fileName}");
+    }
+
     //public Task DeleteFileAsync(string fileName, string folderName)
     //{
     //    throw new NotImplementedException();

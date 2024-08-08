@@ -13,10 +13,9 @@ public class JobPutDto
     public int? MinSalary { get; set; }
     public int? MaxSalary { get; set; }
     public SalaryType SalaryType { get; set; }
-    public int CategoryId { get; set; }
-    public int CompanyId { get; set; }
     public bool IsFeatured { get; set; }
     public bool IsPremium { get; set; }
     public bool? IsApproved { get; set; }
     public bool IsActive { get; set; }
+    public List<string>? Tags { get; set; }
 }

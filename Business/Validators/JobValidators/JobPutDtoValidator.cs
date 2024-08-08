@@ -25,11 +25,5 @@ public class JobPutDtoValidator : AbstractValidator<JobPutDto>
             .NotNull().WithMessage("Location is required")
             .NotEmpty()
             .MaximumLength(30);
-        RuleFor(p => p.CategoryId)
-            .NotNull().WithMessage("Category is required")
-            .NotEmpty();
-        RuleFor(p => p.CompanyId)
-            .NotNull().WithMessage("Company is required")
-            .NotEmpty();
     }
 }

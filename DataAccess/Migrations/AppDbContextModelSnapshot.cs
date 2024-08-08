@@ -118,6 +118,171 @@ namespace DataAccess.Migrations
                     b.ToTable("ContactUs");
                 });
 
+            modelBuilder.Entity("Core.Entities.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Picture")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Syllabus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<int>("TotalHours")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Core.Entities.CourseBookmark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CourseBookmarks");
+                });
+
+            modelBuilder.Entity("Core.Entities.CourseCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseCategories");
+                });
+
+            modelBuilder.Entity("Core.Entities.CourseTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("CourseTags");
+                });
+
             modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -287,8 +452,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Jobs");
-
-                    b.HasCheckConstraint("CK_Job_Salary", "(Salary >= 100 AND Salary <= 10000) OR Salary = -1 OR Salary IS NULL");
                 });
 
             modelBuilder.Entity("Core.Entities.JobApplication", b =>
@@ -401,7 +564,39 @@ namespace DataAccess.Migrations
                     b.ToTable("JobCategories");
                 });
 
-            modelBuilder.Entity("Core.Entities.JTag", b =>
+            modelBuilder.Entity("Core.Entities.JobTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("JobTags");
+                });
+
+            modelBuilder.Entity("Core.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -560,6 +755,63 @@ namespace DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Entities.Course", b =>
+                {
+                    b.HasOne("Core.Entities.CourseCategory", "Category")
+                        .WithMany("Courses")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("Core.Entities.CourseBookmark", b =>
+                {
+                    b.HasOne("Core.Entities.Course", "Course")
+                        .WithMany("Bookmarks")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Identity.AppUser", "User")
+                        .WithMany("CourseBookmarks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Core.Entities.CourseTag", b =>
+                {
+                    b.HasOne("Core.Entities.Course", "Course")
+                        .WithMany("Tags")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Tag", "Tag")
+                        .WithMany("Courses")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("Core.Entities.Job", b =>
                 {
                     b.HasOne("Core.Entities.JobCategory", "Category")
@@ -615,6 +867,25 @@ namespace DataAccess.Migrations
                     b.Navigation("Job");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Core.Entities.JobTag", b =>
+                {
+                    b.HasOne("Core.Entities.Job", "Job")
+                        .WithMany("Tags")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Tag", "Tag")
+                        .WithMany("Jobs")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Job");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -673,11 +944,25 @@ namespace DataAccess.Migrations
                     b.Navigation("Jobs");
                 });
 
+            modelBuilder.Entity("Core.Entities.Course", b =>
+                {
+                    b.Navigation("Bookmarks");
+
+                    b.Navigation("Tags");
+                });
+
+            modelBuilder.Entity("Core.Entities.CourseCategory", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
             modelBuilder.Entity("Core.Entities.Identity.AppUser", b =>
                 {
                     b.Navigation("Applications");
 
                     b.Navigation("Bookmarks");
+
+                    b.Navigation("CourseBookmarks");
                 });
 
             modelBuilder.Entity("Core.Entities.Job", b =>
@@ -685,10 +970,19 @@ namespace DataAccess.Migrations
                     b.Navigation("Applications");
 
                     b.Navigation("Bookmarks");
+
+                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("Core.Entities.JobCategory", b =>
                 {
+                    b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("Core.Entities.Tag", b =>
+                {
+                    b.Navigation("Courses");
+
                     b.Navigation("Jobs");
                 });
 #pragma warning restore 612, 618

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\assets\\templates\\index.html"
     },
     {
+      "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\courseSyllabus\\776bee85-1588-4eef-a7a4-b75474212dfd-EltonsCV.pdf",
+      "PackagePath": "staticwebassets\\files\\courseSyllabus\\776bee85-1588-4eef-a7a4-b75474212dfd-EltonsCV.pdf"
+    },
+    {
       "Id": "C:\\Users\\User\\Desktop\\NextUs_API\\API\\wwwroot\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf",
       "PackagePath": "staticwebassets\\files\\jobApplications\\c360e3e7-22da-4656-9b40-32db22d4bd3f-EltonsCV.pdf"
     },

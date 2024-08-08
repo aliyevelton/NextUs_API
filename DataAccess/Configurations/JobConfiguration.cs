@@ -18,6 +18,5 @@ public class JobConfiguration : IEntityTypeConfiguration<Job>
         builder.Property(j => j.MinSalary).HasColumnType("decimal(18, 2)");
         builder.Property(j => j.MaxSalary).HasColumnType("decimal(18, 2)");
         builder.Property(j => j.ExactSalary).HasColumnType("decimal(18, 2)");
-        builder.HasCheckConstraint("CK_Job_Salary", "(Salary >= 100 AND Salary <= 10000) OR Salary = -1 OR Salary IS NULL");
     }
 }

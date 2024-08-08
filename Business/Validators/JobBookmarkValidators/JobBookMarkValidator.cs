@@ -1,7 +1,7 @@
 ﻿using Business.DTOs.JobBookmarkDtos;
 using FluentValidation;
 
-namespace Business.Validators.JobBookmarrkValidators;
+namespace Business.Validators.JobBookmarkValidators;
 
 public class JobBookMarkValidator :  AbstractValidator<JobBookmarkPostDto>
 {

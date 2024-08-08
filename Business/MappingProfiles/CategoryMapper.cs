@@ -10,5 +10,6 @@ public class CategoryMapper : Profile
     {
         CreateMap<JobCategoryPostDto, JobCategory>().ReverseMap();
         CreateMap<JobCategoryGetDto, JobCategory>().ReverseMap();
+        CreateMap<JobCategoryPutDto, JobCategory>().ReverseMap();
     }
 }

@@ -4,6 +4,7 @@ using Business.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Security.Claims;
 
 namespace API.Controllers;
 
@@ -32,7 +33,10 @@ public class JobsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
-        return Ok(await _jobService.GetByIdAsync(id));
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        var jobDetailWithBookmark = await _jobService.GetByIdAsync(id, userId);
+        return Ok(jobDetailWithBookmark);
     }
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, JobPutDto jobPutDto)

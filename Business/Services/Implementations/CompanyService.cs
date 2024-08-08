@@ -87,7 +87,7 @@ public class CompanyService : ICompanyService
             company.Logo = fileName;
         } else if (companyPostDto.LogoFile != null && company.Logo == null)
         {
-                string fileName = await _fileService.UploadFileAsync(companyPostDto.LogoFile, "image/", 3000,   "images", "companies");
+            string fileName = await _fileService.UploadFileAsync(companyPostDto.LogoFile, "image/", 3000,   "images", "companies");
 
             company.Logo = fileName;
         } else if (companyPostDto.LogoFile == null && company.Logo != null)

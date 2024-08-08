@@ -30,11 +30,11 @@ public class JobBookmarkService : IJobBookmarkService
         throw new NotImplementedException();
     }
 
-    public async Task<List<JobBookMarkGetDto>> GetJobBookmarksByUserIdAsync(string userId)
+    public async Task<List<JobBookmarkGetDto>> GetJobBookmarksByUserIdAsync(string userId)
     {
         var jobBookmarks = await _repository.GetFilteredAsync(j => j.UserId == userId, "Job", "Job.Company");
 
-        var jobBookmarkDtos = jobBookmarks.Select(jb => new JobBookMarkGetDto
+        var jobBookmarkDtos = jobBookmarks.Select(jb => new JobBookmarkGetDto
         {
             Id = jb.Id,
             UserId = jb.UserId,
@@ -60,6 +60,11 @@ public class JobBookmarkService : IJobBookmarkService
 
         await _repository.AddAsync(jobBookmark);
         await _repository.SaveAsync();
+    }
+
+    public async Task<bool> IsJobBookmarkedByUserAsync(int jobId, string userId)
+    {
+        return await _repository.IsExistsAsync(jb => jb.JobId == jobId && jb.UserId == userId);
     }
 
     public async Task DeleteAsync(int id)

@@ -7,7 +7,8 @@ public interface IJobBookmarkService
 {
     Task<JobBookmark> GetByIdAsync(int id);
     Task<List<JobBookmark>> GetJobBookmarksAsync();
-    Task<List<JobBookMarkGetDto>> GetJobBookmarksByUserIdAsync(string userId);
+    Task<List<JobBookmarkGetDto>> GetJobBookmarksByUserIdAsync(string userId);
     Task AddAsync(JobBookmarkPostDto jobBookmarkPostDto);
     Task DeleteAsync(int id);
+    Task<bool> IsJobBookmarkedByUserAsync(int jobId, string userId);
 }

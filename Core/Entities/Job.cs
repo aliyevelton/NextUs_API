@@ -25,4 +25,5 @@ public class Job : BaseEntity
     public DateTime ExpireDate { get; set; }
     public ICollection<JobApplication>? Applications { get; set; }
     public ICollection<JobBookmark>? Bookmarks { get; set; }
+    public ICollection<JobTag>? Tags { get; set; }
 }

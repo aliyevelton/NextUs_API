@@ -28,12 +28,14 @@ public class JobMapper : Profile
             .ForMember(x => x.MinSalary, y => y.Condition(src => src.SalaryType == SalaryType.Range))
             .ForMember(x => x.MaxSalary, y => y.Condition(src => src.SalaryType == SalaryType.Range))
             .ForMember(x => x.SalaryType, y => y.MapFrom(src => src.SalaryType))
+            .ForMember(dest => dest.Tags, opt => opt.Ignore())
             .ReverseMap();
 
         CreateMap<JobPutDto, Job>()
             .ForMember(dest => dest.ExactSalary, opt => opt.Ignore())
             .ForMember(dest => dest.MinSalary, opt => opt.Ignore())
             .ForMember(dest => dest.MaxSalary, opt => opt.Ignore())
+            .ForMember(dest => dest.Tags, opt => opt.Ignore())
             .AfterMap((src, dest) =>
             {
                 if (src.SalaryType == SalaryType.Exact)

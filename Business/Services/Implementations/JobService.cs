@@ -14,14 +14,18 @@ public class JobService : IJobService
     private readonly IRepository<Job> _repository;
     private readonly IRepository<JobCategory> _categoryRepository;
     private readonly IRepository<Company> _companyRepository;
+    private readonly IRepository<Tag> _tagRepository;
+    private readonly IJobBookmarkService _jobBookmarkService;
     private readonly IMapper _mapper;
 
-    public JobService(IRepository<Job> repository, IMapper mapper, IRepository<JobCategory> catRepository, IRepository<Company> companyRepository)
+    public JobService(IRepository<Job> repository, IMapper mapper, IRepository<JobCategory> catRepository, IRepository<Company> companyRepository, IRepository<Tag> tagRepository, IJobBookmarkService jobBookmarkService)
     {
         _repository = repository;
         _mapper = mapper;
         _categoryRepository = catRepository;
         _companyRepository = companyRepository;
+        _tagRepository = tagRepository;
+        _jobBookmarkService = jobBookmarkService;
     }
 
     public async Task<List<JobGetDto>> GetAllJobsAsync(string? title, string? location, int? jobType, int? categoryId, int? companyId, int? minSalary, bool? isFeatured, bool? isPremium, bool? isActive, int? skip, int? take)
@@ -42,15 +46,27 @@ public class JobService : IJobService
         return jobs;
     }
 
-    public async Task<JobDetailDto> GetByIdAsync(int id)
+    public async Task<JobDetailWithBookmarkDto> GetByIdAsync(int id, string? userId)
     {
         var job = await _repository.GetSingleAsync(j => j.Id == id && !j.IsDeleted, "Category", "Company");
         if (job == null)
             throw new JobNotFoundByIdException($"Job not found by id: {id}");
+
+        bool isBookmarked = false;
+        if (userId != null)
+        {
+            isBookmarked = await _jobBookmarkService.IsJobBookmarkedByUserAsync(id, userId);
+        }
         
         var jobDetailDto = _mapper.Map<JobDetailDto>(job);
 
-        return jobDetailDto;
+        var result = new JobDetailWithBookmarkDto
+        {
+            JobDetail = jobDetailDto,
+            IsBookmarked = isBookmarked
+        };
+
+        return result;
     }
 
 
@@ -93,6 +109,22 @@ public class JobService : IJobService
 
         var job = _mapper.Map<Job>(jobPostDto);
 
+        if (jobPostDto.Tags != null && jobPostDto.Tags.Any())
+        {
+            job.Tags = new List<JobTag>();
+            foreach (var tagName in jobPostDto.Tags)
+            {
+                var tag = await _tagRepository.GetSingleAsync(t => t.Name == tagName);
+                if (tag == null)
+                {
+                    tag = new Tag { Name = tagName };
+                    await _tagRepository.AddAsync(tag);
+                    await _tagRepository.SaveAsync();
+                }
+                job.Tags.Add(new JobTag { Job = job, Tag = tag });
+            }
+        }
+
         await _repository.AddAsync(job);
         await _repository.SaveAsync();
     }
@@ -102,17 +134,10 @@ public class JobService : IJobService
         if (job == null)
             throw new JobNotFoundByIdException($"Job not found by id: {id}");
 
-        bool isCategoryExists = await _categoryRepository.IsExistsAsync(c => c.Id == jobPutDto.CategoryId && !c.IsDeleted);
-        bool isCompanyExists = await _companyRepository.IsExistsAsync(c => c.Id == jobPutDto.CompanyId && !c.IsDeleted);
         bool isJobTypeExists = Enum.IsDefined(typeof(JobTypes), (byte)jobPutDto.JobType);
         bool isSalaryTypeExists = Enum.IsDefined(typeof(SalaryType), (byte)jobPutDto.SalaryType);
 
-
-        if (!isCategoryExists)
-            throw new JobCategoryNotFoundException($"Category not found by id: {jobPutDto.CategoryId}");
-        else if (!isCompanyExists)
-            throw new JobCompanyNotFoundException($"Company not found by id: {jobPutDto.CompanyId}");
-        else if (!isJobTypeExists)
+        if (!isJobTypeExists)
             throw new JobTypeNotFoundException($"Job type not found by id: {jobPutDto.JobType}");
         else if (!isSalaryTypeExists)
             throw new SalaryTypeNotFoundException($"Salary type not found by id: {jobPutDto.SalaryType}");
@@ -141,6 +166,21 @@ public class JobService : IJobService
 
         _mapper.Map(jobPutDto, job);
 
+        if (jobPutDto.Tags != null && jobPutDto.Tags.Any())
+        {
+            job.Tags = new List<JobTag>();
+            foreach (var tagName in jobPutDto.Tags)
+            {
+                var tag = await _tagRepository.GetSingleAsync(t => t.Name == tagName);
+                if (tag == null)
+                {
+                    tag = new Tag { Name = tagName };
+                    await _tagRepository.AddAsync(tag);
+                    await _tagRepository.SaveAsync();
+                }
+                job.Tags.Add(new JobTag { Job = job, Tag = tag });
+            }
+        }
 
         _repository.Update(job);
         await _repository.SaveAsync();
@@ -153,6 +193,7 @@ public class JobService : IJobService
             throw new JobNotFoundByIdException($"Job not found by id: {id}");
 
         job.IsDeleted = true;
+        _repository.Update(job);
         await _repository.SaveAsync();
     }
 

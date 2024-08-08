@@ -15,4 +15,5 @@ public class JobPostDto
     public SalaryType SalaryType { get; set; }
     public int CategoryId { get; set; }
     public int CompanyId { get; set; }
+    public List<string>? Tags { get; set; } 
 }

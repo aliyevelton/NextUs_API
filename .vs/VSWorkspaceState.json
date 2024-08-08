@@ -1,12 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\API",
-    "\\API\\Controllers",
-    "\\Business",
-    "\\Business\\DTOs",
-    "\\Business\\DTOs\\CompanyDTOs"
+    ""
   ],
-  "SelectedNode": "\\Business\\DTOs\\CompanyDTOs\\CompanyPostDto.cs",
+  "SelectedNode": "\\NextUs_API.sln",
   "PreviewInSolutionExplorer": false
 }

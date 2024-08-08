@@ -53,8 +53,7 @@ public class CategoryService : ICategoryService
         if (jobCategory == null)
             throw new CategoryNotFoundByIdException($"Category not found by id: {id}");
 
-        jobCategory.Name = category.Name;
-        jobCategory.Description = category.Description;
+        var newCategory = _mapper.Map(category, jobCategory);
 
         _repository.Update(jobCategory);
         await _repository.SaveAsync();
