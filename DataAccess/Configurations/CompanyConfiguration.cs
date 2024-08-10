@@ -13,5 +13,9 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(c => c.Website).IsRequired(false).HasMaxLength(50);
         builder.Property(c => c.Email).IsRequired(true).HasMaxLength(50);
         builder.Property(c => c.Phone).IsRequired(true).HasMaxLength(15);
+
+        builder.HasMany(c => c.Courses)
+               .WithOne(co => co.Company)
+               .HasForeignKey(co => co.CompanyId);
     }
 }

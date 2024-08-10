@@ -28,16 +28,28 @@ public class JobService : IJobService
         _jobBookmarkService = jobBookmarkService;
     }
 
-    public async Task<List<JobGetDto>> GetAllJobsAsync(string? title, string? location, int? jobType, int? categoryId, int? companyId, int? minSalary, bool? isFeatured, bool? isPremium, bool? isActive, int? skip, int? take)
+    public async Task<List<JobGetDto>> GetAllJobsAsync(string? title, string? location, int? jobType, int[]? categoryId, int? companyId, int? minSalary, bool? isFeatured, bool? isPremium, bool? isActive, int? skip, int? take)
     {
-        var dbJobs = await _repository.GetFilteredAsync(j => (title == null || j.Title.Contains(title.ToLower())) &&
+        var conDbJobs = await _repository.GetFilteredAsync(j => (title == null || j.Title.Contains(title.ToLower())) &&
                                                           (location == null || j.Location.Contains(location.ToLower())) &&
                                                           (jobType == null || j.JobType == jobType) &&
-                                                          (categoryId == null || j.CategoryId == categoryId) &&
                                                           (companyId == null || j.CompanyId == companyId) && (minSalary == null || j.ExactSalary >= minSalary || j.MinSalary >= minSalary) &&
                                                           (isFeatured == null || j.IsFeatured == isFeatured) &&
                                                           (isPremium == null || j.IsPremium == isPremium) &&
                                                           (isActive == null || j.IsActive == isActive) && !j.IsDeleted, "Company");
+        var dbJobs = new List<Job>();
+        if (categoryId != null && categoryId.Any())
+        {
+            foreach (var catId in categoryId)
+            {
+                var addedJob = conDbJobs.Where(j => j.CategoryId == catId).ToList();
+                dbJobs.AddRange(addedJob);
+            }
+        }
+        else
+        {
+            dbJobs = conDbJobs.ToList();
+        }
 
         if (skip != null && take != null)
             dbJobs = dbJobs.Skip(skip.Value).Take(take.Value).ToList();
@@ -67,7 +79,7 @@ public class JobService : IJobService
 
         var result = new JobDetailWithBookmarkDto
         {
-            JobDetail = jobDetailDto,
+            Detail = jobDetailDto,
             IsBookmarked = isBookmarked
         };
 

@@ -5,9 +5,9 @@ namespace Business.Services.Interfaces;
 
 public interface IJobApplicationService
 {
-    Task<JobApplication> GetByIdAsync(int id);
-    Task<List<JobApplication>> GetJobApplicationsAsync();
-    Task<List<JobApplication>> GetJobApplicationsByUserIdAsync(string userId);
+    Task<JobApplicationGetDto> GetByIdAsync(int id);
+    Task<List<JobApplicationGetDto>> GetJobApplicationsAsync();
+    Task<List<JobApplicationGetDto>> GetJobApplicationsByUserIdAsync(string userId);
     Task<List<JobApplication>> GetJobApplicationsByJobIdAsync(int jobId);
     Task AddAsync(JobApplicationPostDto jobApplicationPostDto);
     Task DeleteAsync(int id);

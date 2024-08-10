@@ -19,7 +19,7 @@ public class JobsController : ControllerBase
         _jobService = jobService;
     }
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] string? title, [FromQuery] string? location, [FromQuery] int? jobType, [FromQuery] int? categoryId, [FromQuery] int? companyId, [FromQuery] int? minSalary, [FromQuery] bool? isFeatured, [FromQuery] bool? isPremium, [FromQuery] bool? isActive, [FromQuery] int? skip, [FromQuery] int? take)
+    public async Task<IActionResult> GetAll([FromQuery] string? title, [FromQuery] string? location, [FromQuery] int? jobType, [FromQuery] int[]? categoryId, [FromQuery] int? companyId, [FromQuery] int? minSalary, [FromQuery] bool? isFeatured, [FromQuery] bool? isPremium, [FromQuery] bool? isActive, [FromQuery] int? skip, [FromQuery] int? take)
     {
         var jobs = await _jobService.GetAllJobsAsync(title, location, jobType, categoryId, companyId, minSalary, isFeatured, isPremium, isActive, skip, take);
         return Ok(jobs);

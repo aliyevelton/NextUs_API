@@ -114,7 +114,7 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 app.AddExceptionHandler();
-app.UseDeveloperExceptionPage();
+//app.UseDeveloperExceptionPage();
 
 app.MapControllers();
 

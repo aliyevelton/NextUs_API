@@ -52,14 +52,14 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> FindUser(string email)
+    public async Task<IActionResult> FindUser(string username)
     {
-        var user = await _userManager.FindByEmailAsync(email);
+        var user = await _userService.FindUserByUsername(username);
 
         if (user == null)
             return NotFound("User not found");
 
-        return Ok($"User email: {user.Email}");
+        return Ok(user);
     }
 
     [HttpGet("[action]")]

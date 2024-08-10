@@ -1,4 +1,8 @@
-﻿namespace Business.DTOs.CourseDtos;
+﻿using Business.DTOs.CompanyDtos;
+using Business.DTOs.CompanyDTOs;
+using Business.DTOs.CourseCategoryDtos;
+
+namespace Business.DTOs.CourseDtos;
 
 public class CourseDetailDto
 {
@@ -7,7 +11,8 @@ public class CourseDetailDto
     public string Description { get; set; } = null!;
     public int? Price { get; set; }
     public int CategoryId { get; set; }
-    public int CompanyId { get; set; }
+    public CourseCategoryGetDto Category { get; set; }
+    public CompanyGetDto Company { get; set; }
     public int TotalHours { get; set; }
     public string? Syllabus { get; set; }
     public string Location { get; set; } = null!;

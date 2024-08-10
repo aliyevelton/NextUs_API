@@ -56,6 +56,21 @@ public class UserService : IUserService
         return userDto;
     }
 
+    public async Task<UserDetailDto> FindUserByUsername(string username)
+    {
+        var user = await _userManager.FindByNameAsync(username);
+        if (user == null)
+            throw new UserNotFoundException($"User not found by username: {username}");
+
+        var roles = _userManager.GetRolesAsync(user);
+
+        var userDto = _mapper.Map<UserDetailDto>(user);
+
+        userDto.Roles = roles.Result.ToList();
+
+        return userDto;
+    }
+
     public async Task<UserDetailDto> FindUserById(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);

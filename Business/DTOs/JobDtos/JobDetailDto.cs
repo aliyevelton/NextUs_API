@@ -1,5 +1,5 @@
 ﻿using Business.DTOs.CategoryDtos;
-using Business.DTOs.CompanyDTOs;
+using Business.DTOs.CompanyDtos;
 
 namespace Business.DTOs.JobDtos;
 
@@ -11,7 +11,7 @@ public class JobDetailDto
     public string Location { get; set; }
     public string JobType { get; set; }
     public JobCategoryGetDto Category { get; set; }
-    public CompanyPostDto Company { get; set; }
+    public CompanyGetDto Company { get; set; }
     public decimal? ExactSalary { get; set; }
     public decimal? MinSalary { get; set; }
     public decimal? MaxSalary { get; set; }

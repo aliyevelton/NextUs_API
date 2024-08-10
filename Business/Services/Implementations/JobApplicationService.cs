@@ -24,35 +24,49 @@ public class JobApplicationService : IJobApplicationService
         _mapper = mapper;
     }
 
-    public async Task<JobApplication> GetByIdAsync(int id)
+    public async Task<JobApplicationGetDto> GetByIdAsync(int id)
     {
-        var jobApplication = await _repository.GetSingleAsync(j => j.Id == id);
+        var jobApplication = await _repository.GetSingleAsync(j => j.Id == id && !j.IsDeleted, "Job", "Job.Company");
 
         if (jobApplication == null)
             throw new JobApplicationNotFoundException($"Job application not found by id: {id}");
 
-        return jobApplication;
+        var jobApplicationDto = _mapper.Map<JobApplicationGetDto>(jobApplication);
+
+        return jobApplicationDto;
     }
 
-    public async Task<List<JobApplication>> GetJobApplicationsAsync()
+    public async Task<List<JobApplicationGetDto>> GetJobApplicationsByUserIdAsync(string userId)
     {
-        var jobApplications = await _repository.GetAllAsync();
+        var jobApplications = await _repository.GetFilteredAsync(
+            j => j.UserId == userId && !j.IsDeleted,  
+            "Job", "Job.Company"                      
+        );
 
-        if (jobApplications == null)
-            throw new JobApplicationNotFoundException("No job applications found");
+        if (jobApplications == null || !jobApplications.Any())
+            throw new JobApplicationNotFoundException("No job applications found for the specified user.");
 
-        return jobApplications;
+        var jobApplicationDtos = _mapper.Map<List<JobApplicationGetDto>>(jobApplications);
+
+        return jobApplicationDtos;
     }
 
-    public async Task<List<JobApplication>> GetJobApplicationsByUserIdAsync(string userId)
+
+    public async Task<List<JobApplicationGetDto>> GetJobApplicationsAsync()
     {
-        var jobApplications = await _repository.GetFilteredAsync(j => j.UserId == userId);
+        var jobApplications = await _repository.GetFilteredAsync(
+            j => !j.IsDeleted,  
+            "Job", "Job.Company"
+        );
 
-        if (jobApplications == null)
-            throw new JobApplicationNotFoundException("No job applications found");
+        if (jobApplications == null || !jobApplications.Any())
+            throw new JobApplicationNotFoundException("No job applications found.");
 
-        return jobApplications;
+        var jobApplicationDtos = _mapper.Map<List<JobApplicationGetDto>>(jobApplications);
+
+        return jobApplicationDtos;
     }
+
 
     public async Task<List<JobApplication>> GetJobApplicationsByJobIdAsync(int jobId)
     {

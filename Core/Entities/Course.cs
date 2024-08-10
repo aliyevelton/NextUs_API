@@ -12,7 +12,7 @@ public class Course : BaseEntity
     public CourseCategory Category { get; set; }
     public int CompanyId { get; set; }
     public Company Company { get; set; }
-    public int TotalHours { get; set; }
+    public int? TotalHours { get; set; }
     public string? Syllabus { get; set; }
     public string Location { get; set; } = null!;
     public bool IsApproved { get; set; }

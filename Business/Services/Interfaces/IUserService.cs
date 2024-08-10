@@ -8,6 +8,8 @@ public interface IUserService
 {
     Task CreateUserAsync(UserCreateDto userCreateDto);
     Task<UserDetailDto> FindUser(string email);
+    Task<UserDetailDto> FindUserByUsername(string username);
+
     Task<UserDetailDto> FindUserById(string userId);
     Task DeleteUser(string email);
     Task<List<UserGetDto>> GetAllUsers();

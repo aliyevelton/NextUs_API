@@ -94,3 +94,4 @@ C:\Users\User\Desktop\NextUs_API\API\obj\Release\net6.0\ref\API.dll
 C:\Users\User\Desktop\NextUs_API\API\bin\Release\net6.0\AspNetCoreRateLimit.dll
 C:\Users\User\Desktop\NextUs_API\API\bin\Release\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\User\Desktop\NextUs_API\API\bin\Release\net6.0\Newtonsoft.Json.dll
+C:\Users\User\Desktop\NextUs_API\API\bin\Release\net6.0\Microsoft.AspNetCore.Authentication.Google.dll

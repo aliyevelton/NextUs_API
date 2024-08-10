@@ -2,6 +2,6 @@
 
 public class CourseDetailWithBookmarkDto
 {
-    public CourseDetailDto CourseDetail { get; set; }
+    public CourseDetailDto Detail { get; set; }
     public bool IsBookmarked { get; set; }
 }

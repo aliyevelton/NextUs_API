@@ -20,7 +20,7 @@ public class CategoryService : ICategoryService
 
     public async Task<List<JobCategoryGetDto>> GetAllCategoriesAsync(string? search)
     {
-        var jobCategories = await _repository.GetFilteredAsync(c => (search == null || c.Name.ToLower().Contains(search.ToLower()) && !c.IsDeleted));
+        var jobCategories = await _repository.GetFilteredAsync(c => (search == null || c.Name.ToLower().Contains(search.ToLower())) && !c.IsDeleted);
         
         var jobCategoriesDto = _mapper.Map<List<JobCategoryGetDto>>(jobCategories);
         return jobCategoriesDto;
@@ -61,7 +61,7 @@ public class CategoryService : ICategoryService
 
     public async Task DeleteAsync(int id)
     {
-        var category = await _repository.GetSingleAsync(c => c.Id == id && c.IsDeleted);
+        var category = await _repository.GetSingleAsync(c => c.Id == id && !c.IsDeleted);
         if (category == null)
             throw new CategoryNotFoundByIdException($"Category not found by id: {id}");
 

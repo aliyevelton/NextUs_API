@@ -12,4 +12,5 @@ public class Company : BaseEntity
     public string Email { get; set; } = null!;
     public string Phone { get; set; } = null!;
     public ICollection<Job>? Jobs { get; set; }
+    public ICollection<Course>? Courses { get; set;}
 }

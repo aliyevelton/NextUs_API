@@ -31,14 +31,25 @@ public class CourseService : ICourseService
         _courseBookmarkService = courseBookmarkService;
     }
 
-    public async Task<List<CourseGetDto>> GetAllCoursesAsync(string? title, string? location, int? categoryId, int? companyId, int? courseType, int? minPrice, bool? isActive, bool? isApproved, int? skip, int? take)
+    public async Task<List<CourseGetDto>> GetAllCoursesAsync(string? title, string? location, int[]? categoryId, int? companyId, int? courseType, int? minPrice, bool? isActive, bool? isApproved, int? skip, int? take)
     {
         var dbCourses = await _repository.GetFilteredAsync(c => (title == null || c.Title.Contains(title.ToLower())) &&
-            (location == null || c.Location.Contains(location.ToLower())) && (categoryId == null || c.CategoryId == categoryId) && (companyId == null || c.CompanyId == companyId) && (minPrice == null || c.Price >= minPrice) && (isActive == null || c.IsActive == isActive) && (isApproved == null || c.IsApproved == isApproved) && (courseType == null || c.CourseType == courseType) && !c.IsDeleted, "Company");
+            (location == null || c.Location.Contains(location.ToLower())) && (companyId == null || c.CompanyId == companyId) && (minPrice == null || c.Price >= minPrice) && (isActive == null || c.IsActive == isActive) && (isApproved == null || c.IsApproved == isApproved) && (courseType == null || c.CourseType == courseType) && !c.IsDeleted, "Company");
 
         if (skip != null && take != null)
             dbCourses = dbCourses.Skip(skip.Value).Take(take.Value).ToList();
 
+
+        if (categoryId != null && categoryId.Any())
+        {
+            var filteredCourses = new List<Course>();
+            foreach (var catId in categoryId)
+            {
+                var addedCourses = dbCourses.Where(c => c.CategoryId == catId).ToList();
+                filteredCourses.AddRange(addedCourses);
+            }
+            dbCourses = filteredCourses;
+        }
         var courses = _mapper.Map<List<CourseGetDto>>(dbCourses);
         return courses;
     }
@@ -64,7 +75,7 @@ public class CourseService : ICourseService
 
         var result = new CourseDetailWithBookmarkDto
         {
-            CourseDetail = courseDetailDto,
+            Detail = courseDetailDto,
             IsBookmarked = isBookmarked
         };
 

@@ -19,7 +19,7 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] string? title, [FromQuery]  string? location, [FromQuery] int? categoryId, [FromQuery] int? companyId, [FromQuery] int? courseType, [FromQuery] int? minPrice, [FromQuery] bool? isApproved, [FromQuery] bool? isActive, [FromQuery] int? skip, [FromQuery] int? take)
+    public async Task<IActionResult> GetAll([FromQuery] string? title, [FromQuery]  string? location, [FromQuery] int[]? categoryId, [FromQuery] int? companyId, [FromQuery] int? courseType, [FromQuery] int? minPrice, [FromQuery] bool? isApproved, [FromQuery] bool? isActive, [FromQuery] int? skip, [FromQuery] int? take)
     {
         var courses = await _courseService.GetAllCoursesAsync(title, location, categoryId, companyId, courseType, minPrice, isApproved, isActive, skip, take);
         return Ok(courses);

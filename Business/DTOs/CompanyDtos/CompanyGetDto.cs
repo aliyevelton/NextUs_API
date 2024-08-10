@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Business.DTOs.CourseDtos;
+using Business.DTOs.JobDtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.DTOs.CompanyDtos;
 
@@ -12,4 +14,6 @@ public class CompanyGetDto
     public string? Website { get; set; }
     public string Email { get; set; } = null!;
     public string Phone { get; set; } = null!;
+    public List<JobSummaryDto> Jobs { get; set; }
+    public List<CourseSummaryDto> Courses { get; set; }
 }

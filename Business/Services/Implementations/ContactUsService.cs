@@ -62,7 +62,7 @@ public class ContactUsService : IContactUsService
 
     public async Task<List<ContactUsDto>> GetAllAsync()
     {
-        var contactUs = await _repository.GetAllAsync();
+        var contactUs = await _repository.GetFilteredAsync(c => !c.IsDeleted);
 
         var contactUsDto = _mapper.Map<List<ContactUsDto>>(contactUs);
         return contactUsDto;

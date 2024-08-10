@@ -172,7 +172,8 @@ namespace DataAccess.Migrations
                         .HasMaxLength(75)
                         .HasColumnType("nvarchar(75)");
 
-                    b.Property<int>("TotalHours")
+                    b.Property<int?>("TotalHours")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -321,6 +322,9 @@ namespace DataAccess.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Profession")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProfilePhoto")
                         .HasColumnType("nvarchar(max)");
 
@@ -331,6 +335,9 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
@@ -737,7 +744,7 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Company", "Company")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -914,6 +921,8 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Core.Entities.Company", b =>
                 {
+                    b.Navigation("Courses");
+
                     b.Navigation("Jobs");
                 });
 

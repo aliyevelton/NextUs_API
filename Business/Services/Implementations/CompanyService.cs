@@ -24,7 +24,8 @@ public class CompanyService : ICompanyService
 
     public async Task<List<CompanyGetDto>> GetAllCompaniesAsync(string? search)
     {
-        var companies = await _repository.GetFilteredAsync(c => (search == null || c.Name.ToLower().Contains(search.ToLower()) && !c.IsDeleted));
+        var companies = await _repository.GetFilteredAsync(c =>
+        (search == null || c.Name.ToLower().Contains(search.ToLower())) && !c.IsDeleted);
 
         if (companies.Count == 0)
             throw new CompanyNotFoundException("No companies found");
@@ -35,7 +36,7 @@ public class CompanyService : ICompanyService
 
     public async Task<CompanyGetDto> GetByIdAsync(int id)
     {
-        var company = await _repository.GetSingleAsync(c => c.Id == id && !c.IsDeleted);
+        var company = await _repository.GetSingleAsync(c => c.Id == id && !c.IsDeleted, "Jobs", "Courses");
         if (company == null)
             throw new CompanyNotFoundByIdException($"Company not found by id: {id}");
 
@@ -146,6 +147,7 @@ public class CompanyService : ICompanyService
             throw new CompanyNotFoundByIdException($"Company not found by id: {id}");
 
         company.IsDeleted = true;
+        _repository.Update(company);
         await _repository.SaveAsync();
     }
 }

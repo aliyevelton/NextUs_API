@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Business.DTOs.CourseBookmarkDtos;
 using Business.DTOs.CourseDtos;
+using Business.DTOs.JobDtos;
 using Business.Exceptions.CourseExceptions;
 using Business.Services.Interfaces;
 using Core.Entities;
@@ -28,24 +29,15 @@ public class CourseBookmarkService : ICourseBookmarkService
         return courseBookmark;
     }
 
-    public async Task<List<CourseBookmarkGetDto>> GetCourseBookmarksByUserIdAsync(string userId)
+    public async Task<List<CourseGetDto>> GetCourseBookmarksByUserIdAsync(string userId)
     {
-        var courseBookmarks = await _repository.GetFilteredAsync(j => j.UserId == userId, "Course", "Course.Company");
+        var courseBookmarks = await _repository.GetFilteredAsync(
+             c => c.UserId == userId && !c.Course.IsDeleted,
+             "Course.Company");
 
-        var courseBookmarkDtos = courseBookmarks.Select(cb => new CourseBookmarkGetDto
-        {
-            Id = cb.Id,
-            UserId = cb.UserId,
-            Course = new CourseDto
-            {
-                Id = cb.Course.Id,
-                Title = cb.Course.Title,
-                CompanyName = cb.Course.Company.Name,
-                CompanyLogo = cb.Course.Company.Logo
-            }
-        }).ToList();
+        var courseGetDtos = _mapper.Map<List<CourseGetDto>>(courseBookmarks);
 
-        return courseBookmarkDtos;
+        return courseGetDtos;
     }
 
     public Task<List<CourseBookmark>> GetCourseBookmarksAsync()
